@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift Code Generator</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #080d18;
+    color: white;
+}
+
+.container {
+    width: 100%;
+    max-width: 480px;
+    padding: 28px;
+    border: 1px solid #29364d;
+    border-radius: 20px;
+    background: #10182a;
+    box-shadow: 0 15px 50px #0008;
+}
+
+h1 {
+    margin-top: 0;
+    text-align: center;
+    color: #8daeff;
+}
+
+.description {
+    color: #aab6ca;
+    text-align: center;
+    line-height: 1.5;
+}
+
+label {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #3b4962;
+    border-radius: 10px;
+    background: #080d18;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #8daeff;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(100deg, #6388ff, #9a6bff);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+#message {
+    margin-top: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.error {
+    color: #ff7373;
+}
+
+.success {
+    color: #79e6a0;
+}
+
+#result {
+    display: none;
+    margin-top: 25px;
+}
+
+.result-box {
+    padding: 22px;
+    border: 1px solid #34466a;
+    border-radius: 12px;
+    background: #0b1427;
+    text-align: center;
+}
+
+.result-label {
+    color: #aab6ca;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+#finalCode {
+    margin: 18px 0;
+    font-size: clamp(28px, 7vw, 38px);
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+#copyButton {
+    background: #263653;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>GIFTCODE - TOKEN</h1>
+
+    <p class="description">
+        Enter your UID and a valid gift code
+        to generate your Token Id ( each id is valid for one gift code ).
+    </p>
+
+    <form id="generatorForm">
+
+        <label for="uid">Player UID</label>
+
+        <input
+            type="text"
+            id="uid"
+            inputmode="numeric"
+            placeholder="Enter player number"
+            required
+        >
+
+        <label for="giftcode">Gift Code</label>
+
+        <input
+            type="text"
+            id="giftcode"
+            placeholder="Enter gift code"
+            autocomplete="off"
+            required
+        >
+
+        <button type="submit">
+            Generate Token ID
+        </button>
+
+    </form>
+
+    <div id="message" role="status"></div>
+
+    <div id="result">
+
+        <div class="result-box">
+
+            <div class="result-label">
+                GENERATED TOKEN ID
+            </div>
+
+            <div id="finalCode"></div>
+
+            <button type="button" id="copyButton">
+                Copy ID Again
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+// ======================================
+// GIFT CODES AND THEIR MULTIPLIERS
+// Replace these examples with your actual values.
+// ======================================
+
+const GIFT_CODE_MULTIPLIERS = {
+    "FFINDIA": 4568,
+    "GHOST22": 8976
+};
+
+
+// ======================================
+// GENERATOR LOGIC
+// ======================================
+
+const form = document.getElementById("generatorForm");
+const message = document.getElementById("message");
+const result = document.getElementById("result");
+
+let numberToCopy = "";
+
+
+async function copyText(text) {
+
+    if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+    }
+
+    // Fallback for browsers that block the Clipboard API
+    const temp = document.createElement("textarea");
+
+    temp.value = text;
+    temp.setAttribute("readonly", "");
+    temp.style.position = "fixed";
+    temp.style.left = "-9999px";
+
+    document.body.appendChild(temp);
+    temp.select();
+
+    const copied = document.execCommand("copy");
+
+    temp.remove();
+
+    if (!copied) {
+        throw new Error("Clipboard access blocked");
+    }
+}
+
+
+form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    message.textContent = "";
+    message.className = "";
+    result.style.display = "none";
+    numberToCopy = "";
+
+    const uid = document.getElementById("uid").value.trim();
+
+    const giftCode = document.getElementById("giftcode")
+        .value.trim().toUpperCase();
+
+
+    // Validate player UID
+    if (!/^\d+$/.test(uid) || uid.length < 5) {
+
+        message.textContent =
+            "❌ Invalid UID! Enter at least 5 digits.";
+
+        message.className = "error";
+        return;
+    }
+
+
+    // Validate gift code and get its multiplier
+    const multiplier = GIFT_CODE_MULTIPLIERS[giftCode];
+
+    if (multiplier === undefined) {
+
+        message.textContent =
+            "❌ WRONG GIFTCODE! Please enter a valid gift code.";
+
+        message.className = "error";
+        return;
+    }
+
+
+    // Step 1: Extract the first five UID digits
+    const firstFive = uid.substring(0, 5);
+
+
+    // Step 2: Multiply and add 4921
+    const calculation =
+        BigInt(firstFive) * BigInt(multiplier) + 4921n;
+
+
+    // Step 3: Extract the FIRST five digits of the result
+    // Do not extract the last five digits.
+    // Do not reverse the number.
+    const generatedNumber =
+        calculation.toString().substring(0, 5);
+
+
+    // Step 4: Final output is ONLY the generated number
+    // The gift code is NOT added to the final output.
+    numberToCopy = generatedNumber;
+
+    document.getElementById("finalCode").textContent =
+        generatedNumber;
+
+    result.style.display = "block";
+
+
+    // Automatically copy the generated number
+    try {
+
+        await copyText(generatedNumber);
+
+        message.textContent =
+            "✅ Token ID generated and copied successfully!";
+
+        message.className = "success";
+
+    } catch (error) {
+
+        message.textContent =
+            "⚠️ Token ID generated, but automatic copying was blocked. Click Copy Number Again.";
+
+        message.className = "error";
+    }
+
+});
+
+
+// ======================================
+// COPY NUMBER AGAIN BUTTON
+// ======================================
+
+document.getElementById("copyButton")
+    .addEventListener("click", async function() {
+
+        if (!numberToCopy) {
+            return;
+        }
+
+        try {
+
+            await copyText(numberToCopy);
+
+            message.textContent =
+                "✅ Token ID copied successfully!";
+
+            message.className = "success";
+
+        } catch (error) {
+
+            message.textContent =
+                "⚠️ Copy blocked. Select the displayed number and copy it manually.";
+
+            message.className = "error";
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
