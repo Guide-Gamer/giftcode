@@ -1,0 +1,553 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift Code Generator | Guide Gamer</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(ellipse at top, #321014 0%, transparent 55%),
+        #080808;
+    color: white;
+}
+
+.container {
+    width: 100%;
+    max-width: 470px;
+    padding: 30px;
+    border: 1px solid #343434;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #191919, #101010);
+    box-shadow: 0 20px 70px #000c;
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #ff0033;
+    box-shadow: 0 0 18px #ff0033;
+}
+
+/* LIVE HEADER */
+
+.live-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 22px;
+}
+
+.live-dot {
+    width: 10px;
+    height: 10px;
+    background: #ff0033;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #ff0033;
+    animation: blink 1.2s infinite;
+}
+
+.live-text {
+    color: #ff334f;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* YOUTUBE AND GIVEAWAY ICONS */
+
+.brand-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin: 5px 0 22px;
+}
+
+.youtube-icon {
+    width: 48px;
+    height: 34px;
+    color: #ff0033;
+    filter: drop-shadow(0 0 10px #ff003366);
+}
+
+.youtube-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.giveaway-icon {
+    font-size: 34px;
+    filter: drop-shadow(0 0 9px #ff003366);
+}
+
+/* HEADING */
+
+h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 27px;
+    letter-spacing: 1px;
+    font-weight: 800;
+}
+
+h1 span {
+    color: #ff0033;
+}
+
+.description {
+    color: #999;
+    text-align: center;
+    line-height: 1.6;
+    font-size: 13px;
+    margin: 13px 0 28px;
+}
+
+/* INPUTS */
+
+.section-title {
+    font-size: 12px;
+    color: #ff465e;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+}
+
+label {
+    display: block;
+    margin-top: 21px;
+    margin-bottom: 9px;
+    color: #ddd;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #393939;
+    border-radius: 9px;
+    background: #090909;
+    color: white;
+    font-size: 15px;
+    outline: none;
+    transition: 0.25s;
+}
+
+input:focus {
+    border-color: #ff0033;
+    box-shadow: 0 0 0 3px #ff003322;
+}
+
+input::placeholder {
+    color: #666;
+}
+
+/* BUTTONS */
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    border: none;
+    border-radius: 9px;
+    background: linear-gradient(100deg, #ff0033, #d90027);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+button:hover {
+    background: linear-gradient(100deg, #ff294f, #ed0030);
+    box-shadow: 0 5px 25px #ff003344;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* MESSAGE */
+
+#message {
+    margin-top: 17px;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+.error {
+    color: #ff6464;
+}
+
+.success {
+    color: #50e89a;
+}
+
+/* RESULT */
+
+#result {
+    display: none;
+    margin-top: 25px;
+    animation: appear 0.35s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-box {
+    padding: 24px 18px;
+    border: 1px solid #70212e;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #211013, #110b0c);
+    text-align: center;
+}
+
+.result-label {
+    color: #ff536c;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+#finalCode {
+    margin: 20px 0;
+    font-size: clamp(34px, 8vw, 43px);
+    font-weight: 900;
+    letter-spacing: 5px;
+    color: white;
+    overflow-wrap: anywhere;
+    text-shadow: 0 0 20px #ff003355;
+}
+
+#copyButton {
+    margin-top: 5px;
+    background: #292929;
+    border: 1px solid #484848;
+}
+
+#copyButton:hover {
+    background: #383838;
+    box-shadow: none;
+}
+
+/* FOOTER */
+
+.footer {
+    margin-top: 25px;
+    padding-top: 17px;
+    border-top: 1px solid #292929;
+    text-align: center;
+    color: #666;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+.footer span {
+    color: #ff334f;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LIVE HEADER -->
+
+    <div class="live-header">
+        <div class="live-dot"></div>
+        <div class="live-text">LIVE GIVEAWAY</div>
+    </div>
+
+    <!-- YOUTUBE AND GIVEAWAY SYMBOLS -->
+
+    <div class="brand-icons">
+
+        <div class="youtube-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/>
+            </svg>
+        </div>
+
+    
+
+    </div>
+
+    <!-- MAIN HEADING -->
+
+    <h1>GIFT<span>CODE</span></h1>
+
+    <p class="description">
+        Enter your Player UID and a valid Gift Code
+        to generate your unique Token ID.
+        Each ID is valid for one gift code.
+    </p>
+
+    <div class="section-title">PLAYER INFORMATION</div>
+
+    <form id="generatorForm">
+
+        <label for="uid">PLAYER UID</label>
+
+        <input
+            type="text"
+            id="uid"
+            inputmode="numeric"
+            placeholder="Enter player UID"
+            required
+        >
+
+        <label for="giftcode">GIFT CODE</label>
+
+        <input
+            type="text"
+            id="giftcode"
+            placeholder="Enter your gift code"
+            autocomplete="off"
+            required
+        >
+
+        <button type="submit">
+            GENERATE TOKEN ID
+        </button>
+
+    </form>
+
+    <div id="message" role="status"></div>
+
+    <div id="result">
+
+        <div class="result-box">
+
+            <div class="result-label">
+                YOUR GENERATED TOKEN ID
+            </div>
+
+            <div id="finalCode"></div>
+
+            <button type="button" id="copyButton">
+                COPY ID AGAIN
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+        POWERED BY <span>GUIDE GAMER</span>
+    </div>
+
+</div>
+
+<script>
+
+// ======================================
+// GIFT CODES AND THEIR MULTIPLIERS
+// ======================================
+
+const GIFT_CODE_MULTIPLIERS = {
+    "OPENGIFT8": 8787
+};
+
+
+// ======================================
+// GENERATOR LOGIC
+// ======================================
+
+const form = document.getElementById("generatorForm");
+const message = document.getElementById("message");
+const result = document.getElementById("result");
+
+let numberToCopy = "";
+
+
+async function copyText(text) {
+
+    if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+    }
+
+    // Fallback for browsers that block the Clipboard API
+    const temp = document.createElement("textarea");
+
+    temp.value = text;
+    temp.setAttribute("readonly", "");
+    temp.style.position = "fixed";
+    temp.style.left = "-9999px";
+
+    document.body.appendChild(temp);
+    temp.select();
+
+    const copied = document.execCommand("copy");
+
+    temp.remove();
+
+    if (!copied) {
+        throw new Error("Clipboard access blocked");
+    }
+}
+
+
+form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    message.textContent = "";
+    message.className = "";
+    result.style.display = "none";
+    numberToCopy = "";
+
+    const uid = document.getElementById("uid").value.trim();
+
+    const giftCode = document.getElementById("giftcode")
+        .value.trim().toUpperCase();
+
+
+    // Validate player UID
+    if (!/^\d+$/.test(uid) || uid.length < 5) {
+
+        message.textContent =
+            "❌ Invalid UID! Enter at least 5 digits.";
+
+        message.className = "error";
+        return;
+    }
+
+
+    // Validate gift code and get its multiplier
+    const multiplier = GIFT_CODE_MULTIPLIERS[giftCode];
+
+    if (multiplier === undefined) {
+
+        message.textContent =
+            "❌ WRONG GIFTCODE! Please enter a valid gift code.";
+
+        message.className = "error";
+        return;
+    }
+
+
+    // Step 1: Extract the first five UID digits
+    const firstFive = uid.substring(0, 5);
+
+
+    // Step 2: Multiply and add 4921
+    const calculation =
+        BigInt(firstFive) * BigInt(multiplier) + 4921n;
+
+
+    // Step 3: Extract the FIRST five digits of the result
+    // Do not extract the last five digits.
+    // Do not reverse the number.
+    const generatedNumber =
+        calculation.toString().substring(0, 5);
+
+
+    // Step 4: Final output is ONLY the generated number
+    // The gift code is NOT added to the final output.
+    numberToCopy = generatedNumber;
+
+    document.getElementById("finalCode").textContent =
+        generatedNumber;
+
+    result.style.display = "block";
+
+
+    // Automatically copy the generated number
+    try {
+
+        await copyText(generatedNumber);
+
+        message.textContent =
+            "✅ Token ID generated and copied successfully!";
+
+        message.className = "success";
+
+    } catch (error) {
+
+        message.textContent =
+            "⚠️ Token ID generated, but automatic copying was blocked. Click Copy Number Again.";
+
+        message.className = "error";
+    }
+
+});
+
+
+// ======================================
+// COPY NUMBER AGAIN BUTTON
+// ======================================
+
+document.getElementById("copyButton")
+    .addEventListener("click", async function() {
+
+        if (!numberToCopy) {
+            return;
+        }
+
+        try {
+
+            await copyText(numberToCopy);
+
+            message.textContent =
+                "✅ Token ID copied successfully!";
+
+            message.className = "success";
+
+        } catch (error) {
+
+            message.textContent =
+                "⚠️ Copy blocked. Select the displayed number and copy it manually.";
+
+            message.className = "error";
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
