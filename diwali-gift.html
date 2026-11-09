@@ -1,0 +1,644 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diwali Gift Code Generator | Guide Gamer</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 15px;
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(ellipse at 50% 0%, #622313 0%, transparent 45%),
+        radial-gradient(circle at 0% 100%, #36104f 0%, transparent 40%),
+        #10091c;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* BACKGROUND DECORATIONS */
+
+.decoration {
+    position: fixed;
+    pointer-events: none;
+    color: #ffcb68;
+    opacity: 0.5;
+    text-shadow: 0 0 15px #ff9d27;
+    animation: float 4s ease-in-out infinite;
+}
+
+.decoration.one {
+    top: 9%;
+    left: 8%;
+    font-size: 32px;
+}
+
+.decoration.two {
+    bottom: 12%;
+    right: 8%;
+    font-size: 38px;
+    animation-delay: 1s;
+}
+
+.decoration.three {
+    top: 18%;
+    right: 12%;
+    font-size: 23px;
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+/* MAIN CONTAINER */
+
+.container {
+    width: 100%;
+    max-width: 475px;
+    padding: 30px;
+    border: 1px solid #a66b32;
+    border-radius: 20px;
+    background:
+        linear-gradient(145deg, #29142a, #170e22);
+    box-shadow:
+        0 20px 70px #000b,
+        0 0 35px #ff9d2718;
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        #a75b1a,
+        #ffdf8b,
+        #ff9b22,
+        #ffdf8b,
+        #a75b1a
+    );
+    box-shadow: 0 0 15px #ffb43e;
+}
+
+/* FESTIVE HEADER */
+
+.festive-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.festive-label {
+    color: #ffca70;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-shadow: 0 0 12px #ff9d27;
+}
+
+.diwali-title {
+    margin-top: 12px;
+    color: #ffdf9b;
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px #ff9d2744;
+}
+
+/* SINGLE DIYA ICON */
+
+.diya-icon {
+    text-align: center;
+    font-size: 55px;
+    margin: 18px 0 22px;
+    filter: drop-shadow(0 0 12px #ffb43e88);
+    animation: diyaGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes diyaGlow {
+    from {
+        filter: drop-shadow(0 0 7px #ff9d2766);
+        transform: scale(1);
+    }
+    to {
+        filter: drop-shadow(0 0 20px #ffbd50cc);
+        transform: scale(1.06);
+    }
+}
+
+/* HEADING */
+
+h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 29px;
+    letter-spacing: 1px;
+    font-weight: 900;
+    color: #ffe5ae;
+}
+
+h1 span {
+    color: #ffb83e;
+}
+
+.description {
+    color: #c5b3a4;
+    text-align: center;
+    line-height: 1.7;
+    font-size: 13px;
+    margin: 13px 0 28px;
+}
+
+/* FORM */
+
+.section-title {
+    font-size: 12px;
+    color: #ffca70;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+label {
+    display: block;
+    margin-top: 21px;
+    margin-bottom: 9px;
+    color: #f5d9b1;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #76502f;
+    border-radius: 10px;
+    background: #140d1c;
+    color: white;
+    font-size: 15px;
+    outline: none;
+    transition: 0.25s;
+}
+
+input:focus {
+    border-color: #ffbd50;
+    box-shadow: 0 0 0 3px #ffbd5022;
+}
+
+input::placeholder {
+    color: #89796d;
+}
+
+/* GENERATE BUTTON */
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    border: 1px solid #ffdb8a;
+    border-radius: 10px;
+    background: linear-gradient(
+        100deg,
+        #b56b1b,
+        #ffce70,
+        #c27a21
+    );
+    color: #291407;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    transition: 0.25s;
+    box-shadow: 0 5px 20px #ffae3433;
+}
+
+button:hover {
+    background: linear-gradient(
+        100deg,
+        #d98b2e,
+        #ffe5a5,
+        #e59a32
+    );
+    box-shadow: 0 5px 25px #ffbd5066;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* MESSAGE */
+
+#message {
+    margin-top: 17px;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+.error {
+    color: #ff7777;
+}
+
+.success {
+    color: #91e8a9;
+}
+
+/* RESULT */
+
+#result {
+    display: none;
+    margin-top: 25px;
+    animation: appear 0.4s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-box {
+    padding: 25px 18px;
+    border: 1px solid #d79b45;
+    border-radius: 14px;
+    background:
+        radial-gradient(circle at top, #54301d, transparent 75%),
+        #1b1020;
+    text-align: center;
+    box-shadow: 0 0 25px #ffb43e18;
+}
+
+.result-label {
+    color: #ffcf79;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+#finalCode {
+    margin: 20px 0;
+    font-size: clamp(34px, 8vw, 43px);
+    font-weight: 900;
+    letter-spacing: 5px;
+    color: #ffe5a5;
+    overflow-wrap: anywhere;
+    text-shadow: 0 0 20px #ffbd5077;
+}
+
+#copyButton {
+    margin-top: 5px;
+    background: #37251c;
+    border: 1px solid #a77a44;
+    color: #ffdda1;
+    box-shadow: none;
+}
+
+#copyButton:hover {
+    background: #513523;
+}
+
+/* FOOTER */
+
+.footer {
+    margin-top: 25px;
+    padding-top: 17px;
+    border-top: 1px solid #59402f;
+    text-align: center;
+    color: #a99889;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.footer span {
+    color: #ffca70;
+    font-weight: bold;
+}
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+    .container {
+        padding: 24px 20px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    .decoration.one {
+        left: 3%;
+    }
+
+    .decoration.two {
+        right: 3%;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND DECORATIONS -->
+
+<div class="decoration one">✦</div>
+<div class="decoration two">✧</div>
+<div class="decoration three">✦</div>
+
+<div class="container">
+
+    <!-- FESTIVE HEADER -->
+
+    <div class="festive-header">
+
+        <div class="festive-label">
+            ✦ FESTIVAL OF LIGHTS ✦
+        </div>
+
+        <div class="diwali-title">
+            🪔 HAPPY DIWALI 🪔
+        </div>
+
+    </div>
+
+    <!-- SINGLE DIYA ICON -->
+
+    <div class="diya-icon">
+        🪔
+    </div>
+
+    <!-- MAIN HEADING -->
+
+    <h1>GIFT<span>CODE</span></h1>
+
+    <p class="description">
+        Celebrate Diwali with Guide Gamer!
+        Enter your Player UID and a valid Gift Code
+        to generate your unique Token ID.
+    </p>
+
+    <div class="section-title">
+        ✦ PLAYER INFORMATION
+    </div>
+
+    <form id="generatorForm">
+
+        <label for="uid">PLAYER UID</label>
+
+        <input
+            type="text"
+            id="uid"
+            inputmode="numeric"
+            placeholder="Enter player UID"
+            required
+        >
+
+        <label for="giftcode">GIFT CODE</label>
+
+        <input
+            type="text"
+            id="giftcode"
+            placeholder="Enter your gift code"
+            autocomplete="off"
+            required
+        >
+
+        <button type="submit">
+            🪔 GENERATE TOKEN ID
+        </button>
+
+    </form>
+
+    <div id="message" role="status"></div>
+
+    <div id="result">
+
+        <div class="result-box">
+
+            <div class="result-label">
+                ✦ YOUR GENERATED TOKEN ID ✦
+            </div>
+
+            <div id="finalCode"></div>
+
+            <button type="button" id="copyButton">
+                📋 COPY ID AGAIN
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+        MADE WITH ❤️ BY <span>GUIDE GAMER</span>
+
+        <div style="margin-top:8px;color:#806c5b;">
+            ✦ WISHING YOU A HAPPY AND PROSPEROUS DIWALI ✦
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+// ======================================
+// GIFT CODES AND THEIR MULTIPLIERS
+// ======================================
+
+const GIFT_CODE_MULTIPLIERS = {
+    "LIVE1": 7545,
+    "WINNER016": 2342,
+    "SURPRISE23": 9854,
+};
+
+
+// ======================================
+// GENERATOR LOGIC
+// ======================================
+
+const form = document.getElementById("generatorForm");
+const message = document.getElementById("message");
+const result = document.getElementById("result");
+
+let numberToCopy = "";
+
+
+async function copyText(text) {
+
+    if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+    }
+
+    // Fallback for browsers that block the Clipboard API
+    const temp = document.createElement("textarea");
+
+    temp.value = text;
+    temp.setAttribute("readonly", "");
+    temp.style.position = "fixed";
+    temp.style.left = "-9999px";
+
+    document.body.appendChild(temp);
+    temp.select();
+
+    const copied = document.execCommand("copy");
+
+    temp.remove();
+
+    if (!copied) {
+        throw new Error("Clipboard access blocked");
+    }
+}
+
+
+form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    message.textContent = "";
+    message.className = "";
+    result.style.display = "none";
+    numberToCopy = "";
+
+    const uid = document.getElementById("uid").value.trim();
+
+    const giftCode = document.getElementById("giftcode")
+        .value.trim().toUpperCase();
+
+
+    // Validate player UID
+    if (!/^\d+$/.test(uid) || uid.length < 5) {
+
+        message.textContent =
+            "❌ Invalid UID! Enter at least 5 digits.";
+
+        message.className = "error";
+        return;
+    }
+
+
+    // Validate gift code and get its multiplier
+    const multiplier = GIFT_CODE_MULTIPLIERS[giftCode];
+
+    if (multiplier === undefined) {
+
+        message.textContent =
+            "❌ WRONG GIFTCODE! Please enter a valid gift code.";
+
+        message.className = "error";
+        return;
+    }
+
+
+    // Step 1: Extract the first five UID digits
+    const firstFive = uid.substring(0, 5);
+
+
+    // Step 2: Multiply and add 4921
+    const calculation =
+        BigInt(firstFive) * BigInt(multiplier) + 4921n;
+
+
+    // Step 3: Extract the FIRST five digits of the result
+    // Do not extract the last five digits.
+    // Do not reverse the number.
+    const generatedNumber =
+        calculation.toString().substring(0, 5);
+
+
+    // Step 4: Final output is ONLY the generated number
+    // The gift code is NOT added to the final output.
+    numberToCopy = generatedNumber;
+
+    document.getElementById("finalCode").textContent =
+        generatedNumber;
+
+    result.style.display = "block";
+
+
+    // Automatically copy the generated number
+    try {
+
+        await copyText(generatedNumber);
+
+        message.textContent =
+            "✅ Token ID generated and copied successfully!";
+
+        message.className = "success";
+
+    } catch (error) {
+
+        message.textContent =
+            "⚠️ Token ID generated, but automatic copying was blocked. Click Copy Number Again.";
+
+        message.className = "error";
+    }
+
+});
+
+
+// ======================================
+// COPY NUMBER AGAIN BUTTON
+// ======================================
+
+document.getElementById("copyButton")
+    .addEventListener("click", async function() {
+
+        if (!numberToCopy) {
+            return;
+        }
+
+        try {
+
+            await copyText(numberToCopy);
+
+            message.textContent =
+                "✅ Token ID copied successfully!";
+
+            message.className = "success";
+
+        } catch (error) {
+
+            message.textContent =
+                "⚠️ Copy blocked. Select the displayed number and copy it manually.";
+
+            message.className = "error";
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
